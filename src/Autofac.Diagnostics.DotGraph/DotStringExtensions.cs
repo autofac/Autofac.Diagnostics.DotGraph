@@ -195,7 +195,7 @@ namespace Autofac.Diagnostics.DotGraph
             // Pretty stoked the StringComparison overload is only in one of our
             // target frameworks. :(
 #if NETSTANDARD2_0
-                return HttpUtility.HtmlEncode(input).Replace(Environment.NewLine, "<br/>");
+            return HttpUtility.HtmlEncode(input).Replace(Environment.NewLine, "<br/>");
 #endif
 #if !NETSTANDARD2_0
             return HttpUtility.HtmlEncode(input).Replace(Environment.NewLine, "<br/>", StringComparison.Ordinal);
