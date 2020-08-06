@@ -1,15 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D8E94071-DDE4-4B18-912D-049BA7FE386A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Diagnostics.DotGraph", "src\Autofac.Diagnostics.DotGraph\Autofac.Diagnostics.DotGraph.csproj", "{28123163-7FD3-4EB0-B6B8-6C566AA7B84D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Diagnostics.DotGraph", "src\Autofac.Diagnostics.DotGraph\Autofac.Diagnostics.DotGraph.csproj", "{28123163-7FD3-4EB0-B6B8-6C566AA7B84D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EAD80020-1274-4541-97FB-230E8A3A1CD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.Diagnostics.DotGraph.Test", "test\Autofac.Diagnostics.DotGraph.Test\Autofac.Diagnostics.DotGraph.Test.csproj", "{5ED79F09-C5C0-4F35-AAB0-F05053FFC170}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Diagnostics.DotGraph.Test", "test\Autofac.Diagnostics.DotGraph.Test\Autofac.Diagnostics.DotGraph.Test.csproj", "{5ED79F09-C5C0-4F35-AAB0-F05053FFC170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F6143D3-A51C-4F22-8AA7-C5F615916391}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.ps1 = build.ps1
+		codecov.yml = codecov.yml
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		global.json = global.json
+		NuGet.Config = NuGet.Config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{873F9062-E245-4B61-B532-EB6049ACED00}"
+	ProjectSection(SolutionItems) = preProject
+		build\Analyzers.ruleset = build\Analyzers.ruleset
+		build\Autofac.Build.psd1 = build\Autofac.Build.psd1
+		build\Autofac.Build.psm1 = build\Autofac.Build.psm1
+		build\stylecop.json = build\stylecop.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +41,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{28123163-7FD3-4EB0-B6B8-6C566AA7B84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,8 +68,14 @@ Global
 		{5ED79F09-C5C0-4F35-AAB0-F05053FFC170}.Release|x86.ActiveCfg = Release|Any CPU
 		{5ED79F09-C5C0-4F35-AAB0-F05053FFC170}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{28123163-7FD3-4EB0-B6B8-6C566AA7B84D} = {D8E94071-DDE4-4B18-912D-049BA7FE386A}
 		{5ED79F09-C5C0-4F35-AAB0-F05053FFC170} = {EAD80020-1274-4541-97FB-230E8A3A1CD0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1ED69834-6C4D-4672-9971-A45DBC2EA188}
 	EndGlobalSection
 EndGlobal
