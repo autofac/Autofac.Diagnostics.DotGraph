@@ -180,7 +180,7 @@ namespace Autofac.Diagnostics.DotGraph
             // so we can de-dupe.
             var unique = Requests
                 .Where(r => r.Success && r.Instance is object && r.Id != OriginatingRequest)
-                .Distinct(InstanceEqualityComparer.Default)
+                .Distinct(NodeEqualityComparer.Default)
                 .Select(r => r.Id)
                 .ToArray();
 
@@ -221,6 +221,7 @@ namespace Autofac.Diagnostics.DotGraph
 
                 // Decorator target must also be the same (otherwise we lose the instance/decorator relationship)
                 dup.DecoratorTarget == source.DecoratorTarget).ToArray();
+
             if (duplicates.Length == 0)
             {
                 // No duplicates.

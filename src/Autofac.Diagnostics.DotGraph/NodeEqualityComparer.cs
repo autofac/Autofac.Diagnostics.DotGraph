@@ -11,15 +11,15 @@ namespace Autofac.Diagnostics.DotGraph
     /// same based on the returned instance. Used to find "duplicates" in the graph
     /// during normalization.
     /// </summary>
-    internal class InstanceEqualityComparer : IEqualityComparer<ResolveRequestNode>
+    internal class NodeEqualityComparer : IEqualityComparer<ResolveRequestNode>
     {
         /// <summary>
         /// Gets the singleton default instance of the comparer.
         /// </summary>
         /// <value>
-        /// A singleton <see cref="InstanceEqualityComparer"/> that can be used in graph normalization.
+        /// A singleton <see cref="NodeEqualityComparer"/> that can be used in graph normalization.
         /// </value>
-        public static InstanceEqualityComparer Default { get; } = new InstanceEqualityComparer();
+        public static NodeEqualityComparer Default { get; } = new NodeEqualityComparer();
 
         /// <summary>
         /// Determines whether the specified objects are equal.
