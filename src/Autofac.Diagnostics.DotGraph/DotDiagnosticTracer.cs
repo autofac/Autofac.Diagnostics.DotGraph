@@ -65,7 +65,7 @@ namespace Autofac.Diagnostics.DotGraph
             }
 
             var builder = _operationBuilders.GetOrAdd(data.Operation, k => new DotGraphBuilder());
-            builder.OnOperationStart(data.Operation.InitiatingRequest?.Service.Description);
+            builder.OnOperationStart(data.Operation.InitiatingRequest?.Service.GraphDisplayName());
         }
 
         /// <inheritdoc/>
