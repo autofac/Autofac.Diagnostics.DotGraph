@@ -35,7 +35,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
 
             container.Resolve<string>();
 
-            Assert.Contains("λ:System.String", lastOpResult);
+            Assert.Contains("λ:string", lastOpResult);
             Assert.StartsWith("digraph G {", lastOpResult);
             Assert.EndsWith("}", lastOpResult.Trim());
         }

@@ -126,7 +126,7 @@ namespace Autofac.Diagnostics.DotGraph
             stringBuilder.StartNode(Id, shape, Success);
             foreach (var service in Services.Keys)
             {
-                stringBuilder.AppendServiceRow(service.Description, Services[service]);
+                stringBuilder.AppendServiceRow(service.GraphDisplayName(), Services[service]);
             }
 
             stringBuilder.AppendTableRow(TracerMessages.ComponentDisplay, Component);
@@ -144,12 +144,12 @@ namespace Autofac.Diagnostics.DotGraph
             if (Instance is object &&
                 (Services.Count != 1 || !(Services.First().Key is IServiceWithType swt) || swt.ServiceType != Instance.GetType()))
             {
-                stringBuilder.AppendTableRow(TracerMessages.InstanceDisplay, Instance.GetType().FullName);
+                stringBuilder.AppendTableRow(TracerMessages.InstanceDisplay, Instance.GetType().CSharpName());
             }
 
             if (Exception is object)
             {
-                stringBuilder.AppendTableErrorRow(Exception.GetType().FullName, Exception.Message);
+                stringBuilder.AppendTableErrorRow(Exception.GetType().CSharpName(), Exception.Message);
             }
 
             stringBuilder.EndNode();
@@ -159,7 +159,10 @@ namespace Autofac.Diagnostics.DotGraph
                 var destination = allRequests[edge.Request];
                 var edgeId = destination.Id.NodeId() + ":" + destination.Services[edge.Service].NodeId();
 
-                // Shorter type name for line descriptions where possible.
+                // Shorter type name for line descriptions where possible. Using
+                // the type name here rather than the C# name because C# will
+                // include the namespace and will be longer than raw type name.
+                // It will still be "pretty printed" in the individual nodes.
                 var description = edge.Service is IServiceWithType edgeSwt ? edgeSwt.ServiceType.Name : edge.Service.Description;
                 stringBuilder.ConnectNodes(Id.NodeId(), edgeId, description, !destination.Success);
             }
