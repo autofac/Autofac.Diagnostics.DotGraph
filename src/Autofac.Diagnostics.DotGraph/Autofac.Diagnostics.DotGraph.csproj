@@ -38,7 +38,7 @@
     <AdditionalFiles Include="../../build/stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.0.0-v6-01101" />
+    <PackageReference Include="Autofac" Version="6.0.0-develop-01132" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
