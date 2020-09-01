@@ -54,7 +54,8 @@ namespace Autofac.Diagnostics.DotGraph
                 stringBuilder.Append("</b>");
             }
 
-            stringBuilder.Append("<br/><font point-size=\"8\">Operation #");
+            stringBuilder.Append("<br/><font point-size=\"8\">");
+            stringBuilder.Append(TracerMessages.OperationNumber);
             stringBuilder.Append(SequenceNumber);
             stringBuilder.Append("</font>>;");
             stringBuilder.AppendLine();
