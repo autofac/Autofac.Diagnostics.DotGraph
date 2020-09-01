@@ -89,7 +89,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
             scope.Resolve<IHandler<string>>();
 
             // Label should be pretty-printed.
-            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;>;", result);
+            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;", result);
 
             // No raw type names.
             Assert.DoesNotContain("`1", result);

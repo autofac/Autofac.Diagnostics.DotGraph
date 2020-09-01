@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Concurrent;
+using System.Threading;
 using Autofac.Core;
 using Autofac.Core.Resolving;
 
@@ -39,6 +40,11 @@ namespace Autofac.Diagnostics.DotGraph
 
         private readonly ConcurrentDictionary<IResolveOperation, DotGraphBuilder> _operationBuilders = new ConcurrentDictionary<IResolveOperation, DotGraphBuilder>();
 
+        // "Global" sequence number for graph ordering. Increment is done
+        // with Interlocked.Increment, which is both thread-safe and handles
+        // overflow by wrapping from Int64.MaxValue to Int64.MinValue as needed.
+        private long _sequenceNumber = 0;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DotDiagnosticTracer"/> class.
         /// </summary>
@@ -65,7 +71,7 @@ namespace Autofac.Diagnostics.DotGraph
             }
 
             var builder = _operationBuilders.GetOrAdd(data.Operation, k => new DotGraphBuilder());
-            builder.OnOperationStart(data.Operation.InitiatingRequest?.Service.GraphDisplayName());
+            builder.OnOperationStart(data.Operation.InitiatingRequest?.Service.GraphDisplayName(), Interlocked.Increment(ref _sequenceNumber));
         }
 
         /// <inheritdoc/>

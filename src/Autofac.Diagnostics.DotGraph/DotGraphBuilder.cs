@@ -51,9 +51,15 @@ namespace Autofac.Diagnostics.DotGraph
         /// Adds information about the operation available at operation start.
         /// </summary>
         /// <param name="service">The display name of the service being resolved in this operation.</param>
-        public void OnOperationStart(string? service)
+        /// <param name="sequenceNumber">
+        /// A <see cref="long"/> indicating a basic ordering of resolve operations to
+        /// enable some correlation between a parent operation and child operations that
+        /// involve service location.
+        /// </param>
+        public void OnOperationStart(string? service, long sequenceNumber)
         {
             Operation.Service = service;
+            Operation.SequenceNumber = sequenceNumber;
         }
 
         /// <summary>
