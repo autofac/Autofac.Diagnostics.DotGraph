@@ -120,8 +120,14 @@
   <data name="ComponentDisplay" xml:space="preserve">
     <value>Component: {0}</value>
   </data>
+  <data name="DeferredOperation" xml:space="preserve">
+    <value>Possible deferred resolve operation / service location</value>
+  </data>
   <data name="InstanceDisplay" xml:space="preserve">
     <value>Instance: {0}</value>
+  </data>
+  <data name="OperationNumber" xml:space="preserve">
+    <value>Operation #</value>
   </data>
   <data name="TargetDisplay" xml:space="preserve">
     <value>Target: {0}</value>

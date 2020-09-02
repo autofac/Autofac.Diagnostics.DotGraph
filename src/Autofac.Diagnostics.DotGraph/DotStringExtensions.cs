@@ -35,17 +35,22 @@ namespace Autofac.Diagnostics.DotGraph
         /// <see langword="true"/> to indicate the operation was successful; <see langword="false"/> to
         /// highlight the operation as a failure path.
         /// </param>
+        /// <param name="deferred">
+        /// <see langword="true"/> to indicate the node may contain the start of a deferred service
+        /// resolution (e.g., it's a service location waiting to happen); <see langword="false"/> if not.
+        /// </param>
         /// <returns>
         /// The <paramref name="stringBuilder" /> for continued writing.
         /// </returns>
-        public static StringBuilder StartNode(this StringBuilder stringBuilder, Guid id, string shape, bool success)
+        public static StringBuilder StartNode(this StringBuilder stringBuilder, Guid id, string shape, bool success, bool deferred)
         {
             stringBuilder.AppendFormat(
                 CultureInfo.CurrentCulture,
-                "{0} [shape={1},{2}label=<",
+                "{0} [shape={1},{2}{3}label=<",
                 id.NodeId(),
                 shape,
-                success ? null : "penwidth=3,color=red,");
+                success ? null : "penwidth=3,color=red,",
+                deferred ? "style=dotted," : null);
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("<table border='0' cellborder='0' cellspacing='0'>");
             return stringBuilder;

@@ -123,7 +123,9 @@ namespace Autofac.Diagnostics.DotGraph
         public void ToString(StringBuilder stringBuilder, RequestDictionary allRequests)
         {
             var shape = DecoratorTarget == null ? "component" : "box3d";
-            stringBuilder.StartNode(Id, shape, Success);
+            var allServiceTypes = Services.Keys.OfType<IServiceWithType>().Select(s => s.ServiceType).ToArray();
+            var deferred = allServiceTypes.Contains(typeof(ILifetimeScope)) || allServiceTypes.Contains(typeof(IComponentContext));
+            stringBuilder.StartNode(Id, shape, Success, deferred);
             foreach (var service in Services.Keys)
             {
                 stringBuilder.AppendServiceRow(service.GraphDisplayName(), Services[service]);
@@ -150,6 +152,11 @@ namespace Autofac.Diagnostics.DotGraph
             if (Exception is object)
             {
                 stringBuilder.AppendTableErrorRow(Exception.GetType().CSharpName(), Exception.Message);
+            }
+
+            if (deferred)
+            {
+                stringBuilder.AppendTableRow(TracerMessages.DeferredOperation);
             }
 
             stringBuilder.EndNode();

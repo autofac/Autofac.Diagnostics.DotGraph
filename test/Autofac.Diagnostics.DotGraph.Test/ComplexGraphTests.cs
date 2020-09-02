@@ -89,7 +89,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
             scope.Resolve<IHandler<string>>();
 
             // Label should be pretty-printed.
-            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;>;", result);
+            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;", result);
 
             // No raw type names.
             Assert.DoesNotContain("`1", result);
@@ -136,12 +136,15 @@ namespace Autofac.Diagnostics.DotGraph.Test
 
         public class Component3Decorator : IService3
         {
-            public Component3Decorator(IService3 decorated)
+            public Component3Decorator(IService3 decorated, ILifetimeScope scope)
             {
                 Decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
+                Scope = scope ?? throw new ArgumentNullException(nameof(scope));
             }
 
             public IService3 Decorated { get; }
+
+            public ILifetimeScope Scope { get; }
         }
 
         public class Handler<T> : IHandler<T>

@@ -23,6 +23,17 @@ namespace Autofac.Diagnostics.DotGraph
         public bool Success { get; set; }
 
         /// <summary>
+        /// Gets or sets the operation sequence number for resolve operation ordering.
+        /// </summary>
+        /// <value>
+        /// A <see cref="long"/> indicating the general sequence in which the resolve
+        /// operation reached a terminal state (success or failure). This can be used
+        /// to roughly correlate disconnected resolve operations where service location
+        /// may be taking place.
+        /// </value>
+        public long SequenceNumber { get; set; }
+
+        /// <summary>
         /// Serializes the top-level operation data to the graph.
         /// </summary>
         /// <param name="stringBuilder">
@@ -43,7 +54,10 @@ namespace Autofac.Diagnostics.DotGraph
                 stringBuilder.Append("</b>");
             }
 
-            stringBuilder.Append(">;");
+            stringBuilder.Append("<br/><font point-size=\"8\">");
+            stringBuilder.Append(TracerMessages.OperationNumber);
+            stringBuilder.Append(SequenceNumber);
+            stringBuilder.Append("</font>>;");
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("labelloc=t");
         }
