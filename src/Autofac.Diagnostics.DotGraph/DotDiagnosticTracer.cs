@@ -87,7 +87,7 @@ namespace Autofac.Diagnostics.DotGraph
                 try
                 {
                     builder.OnOperationSuccess();
-                    OnOperationCompleted(new OperationTraceCompletedArgs<string>(data.Operation, builder.ToString()));
+                    OnOperationCompleted(new OperationTraceCompletedArgs<string>(data.Operation, true, builder.ToString()));
                 }
                 finally
                 {
@@ -109,7 +109,7 @@ namespace Autofac.Diagnostics.DotGraph
                 try
                 {
                     builder.OnOperationFailure();
-                    OnOperationCompleted(new OperationTraceCompletedArgs<string>(data.Operation, builder.ToString()));
+                    OnOperationCompleted(new OperationTraceCompletedArgs<string>(data.Operation, false, builder.ToString()));
                 }
                 finally
                 {
