@@ -2,7 +2,7 @@
 
 Autofac diagnostics support to enable DOT graph visualization of resolve requests.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/asqnmv0qa7m43oy0/branch/develop?svg=true)](https://ci.appveyor.com/project/Autofac/autofac-diagnostics-dotgraph/branch/develop)
+[![Build status](https://ci.appveyor.com/api/projects/status/asqnmv0qa7m43oy0/branch/develop?svg=true)](https://ci.appveyor.com/project/Autofac/autofac-diagnostics-dotgraph/branch/develop) [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/autofac/Autofac.Diagnostics.DotGraph)
 
 Please file issues and pull requests for this package in this repository rather than in the Autofac core repo.
 
