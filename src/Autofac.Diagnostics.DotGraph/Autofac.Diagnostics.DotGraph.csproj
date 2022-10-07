@@ -1,65 +1,84 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Description>Autofac diagnostics support to enable DOT graph visualization of resolve requests.</Description>
     <!-- VersionPrefix patched by AppVeyor -->
     <VersionPrefix>0.0.1</VersionPrefix>
+    <!-- Assembly metadata -->
+    <Description>Autofac diagnostics support to enable DOT graph visualization of resolve requests.</Description>
+    <Copyright>Copyright © 2020 Autofac Contributors</Copyright>
+    <Authors>Autofac Contributors</Authors>
+    <Company>Autofac</Company>
+    <Product>Autofac</Product>
+    <AssemblyOriginatorKeyFile>../../Autofac.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <!-- Frameworks and language features -->
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyOriginatorKeyFile>../../Autofac.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
+    <CodeAnalysisRuleSet>../../build/Analyzers.ruleset</CodeAnalysisRuleSet>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Packaging -->
     <PackageId>Autofac.Diagnostics.DotGraph</PackageId>
     <PackageTags>autofac;di;ioc;dependencyinjection;graph;diagnostics</PackageTags>
     <PackageReleaseNotes>Release notes are at https://github.com/autofac/Autofac.Diagnostics.DotGraph/releases</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://autofac.org</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/autofac/Autofac.Diagnostics.DotGraph</RepositoryUrl>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Copyright>Copyright (c) Autofac Project. All rights reserved.</Copyright>
-    <CodeAnalysisRuleSet>../../build/Analyzers.ruleset</CodeAnalysisRuleSet>
+    <ContinuousIntegrationBuild Condition="'$(CI)' != '' ">true</ContinuousIntegrationBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedAllSources>true</EmbedAllSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <Authors>Autofac Contributors</Authors>
-    <Company>Autofac</Company>
-    <Product>Autofac</Product>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <!-- Disable nullability warnings in netstandard2.0 -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Include="../../build/icon.png" Pack="true" PackagePath="\" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
   </ItemGroup>
+
   <ItemGroup>
-    <AdditionalFiles Include="../../build/stylecop.json" Link="stylecop.json" />
+    <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0">
-      <PrivateAssets>All</PrivateAssets>
+    <AdditionalFiles Include="..\..\build\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113">
-      <PrivateAssets>All</PrivateAssets>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <!-- Magic embedded resource incantation based on https://github.com/dotnet/msbuild/issues/4751 -->
+    <!--
+      Magic embedded resource incantation based on https://github.com/dotnet/msbuild/issues/4751
+
+      The EmbeddedResource entry seems to add the Designer files to Compile, so
+      if you don't first remove them from Compile you get warnings about
+      double-including source.
+    -->
+    <Compile Remove="**/*.Designer.cs" />
     <EmbeddedResource Update="TracerMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TracerMessages.Designer.cs</LastGenOutput>
-      <StronglyTypedFileName>$(IntermediateOutputPath)/TracerMessages.Designer.cs</StronglyTypedFileName>
+      <StronglyTypedFileName>TracerMessages.Designer.cs</StronglyTypedFileName>
       <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
       <StronglyTypedNamespace>Autofac.Diagnostics.DotGraph</StronglyTypedNamespace>
       <StronglyTypedClassName>TracerMessages</StronglyTypedClassName>
