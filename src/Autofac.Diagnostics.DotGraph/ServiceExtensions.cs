@@ -3,25 +3,24 @@
 
 using Autofac.Core;
 
-namespace Autofac.Diagnostics.DotGraph
+namespace Autofac.Diagnostics.DotGraph;
+
+/// <summary>
+/// Extension methods for building DOT graph components from services.
+/// </summary>
+internal static class ServiceExtensions
 {
     /// <summary>
-    /// Extension methods for building DOT graph components from services.
+    /// Gets the display name for a service that should be used in a graph.
     /// </summary>
-    internal static class ServiceExtensions
+    /// <param name="service">The service for which a display name should be retrieved.</param>
+    /// <returns>A <see cref="string"/> with a human-readable, pretty-printed display name for use in a graph node or label.</returns>
+    public static string GraphDisplayName(this Service service)
     {
-        /// <summary>
-        /// Gets the display name for a service that should be used in a graph.
-        /// </summary>
-        /// <param name="service">The service for which a display name should be retrieved.</param>
-        /// <returns>A <see cref="string"/> with a human-readable, pretty-printed display name for use in a graph node or label.</returns>
-        public static string GraphDisplayName(this Service service)
+        return service switch
         {
-            return service switch
-            {
-                IServiceWithType swt => swt.ServiceType.CSharpName(),
-                _ => service.Description,
-            };
-        }
+            IServiceWithType swt => swt.ServiceType.CSharpName(),
+            _ => service.Description,
+        };
     }
 }
