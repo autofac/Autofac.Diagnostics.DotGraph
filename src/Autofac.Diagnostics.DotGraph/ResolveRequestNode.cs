@@ -133,7 +133,7 @@ namespace Autofac.Diagnostics.DotGraph
 
             stringBuilder.AppendTableRow(TracerMessages.ComponentDisplay, Component);
 
-            if (DecoratorTarget is object)
+            if (DecoratorTarget is not null)
             {
                 stringBuilder.AppendTableRow(TracerMessages.TargetDisplay, DecoratorTarget);
             }
@@ -143,13 +143,13 @@ namespace Autofac.Diagnostics.DotGraph
             //   - There's more than one service exposed (which means there's at least one service)
             //     not matching the instance type OR
             //   - There's only one service exposed and that one doesn't match the instance type.
-            if (Instance is object &&
-                (Services.Count != 1 || !(Services.First().Key is IServiceWithType swt) || swt.ServiceType != Instance.GetType()))
+            if (Instance is not null &&
+                (Services.Count != 1 || Services.First().Key is not IServiceWithType swt || swt.ServiceType != Instance.GetType()))
             {
                 stringBuilder.AppendTableRow(TracerMessages.InstanceDisplay, Instance.GetType().CSharpName());
             }
 
-            if (Exception is object)
+            if (Exception is not null)
             {
                 stringBuilder.AppendTableErrorRow(Exception.GetType().CSharpName(), Exception.Message);
             }

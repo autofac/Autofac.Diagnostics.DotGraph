@@ -60,9 +60,9 @@ namespace Autofac.Diagnostics.DotGraph
         public bool Equals(GraphEdge? other)
         {
             return
-                other is object &&
+                other is not null &&
                 other.Request == Request &&
-                ((other.Service is object && Service is object && other.Service.Equals(Service)) ||
+                ((other.Service is not null && Service is not null && other.Service.Equals(Service)) ||
                 (other.Service is null && Service is null));
         }
 

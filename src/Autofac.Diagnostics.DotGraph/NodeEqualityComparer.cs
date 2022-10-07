@@ -33,7 +33,7 @@ namespace Autofac.Diagnostics.DotGraph
         /// <returns>
         /// <see langword="true"/> if the specified objects are equal; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool Equals(ResolveRequestNode x, ResolveRequestNode y) => ReferenceEquals(x.Instance, y.Instance);
+        public bool Equals(ResolveRequestNode? x, ResolveRequestNode? y) => ReferenceEquals(x?.Instance, y?.Instance);
 
         /// <summary>
         /// Returns a hash code for the specified object.
