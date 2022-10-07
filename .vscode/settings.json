@@ -1,7 +1,13 @@
 {
   "cSpell.words": [
     "autofac",
-    "graphviz"
+    "cref",
+    "graphviz",
+    "inheritdoc",
+    "langword",
+    "multitarget",
+    "netstandard",
+    "xunit"
   ],
   "dotnet-test-explorer.testProjectPath": "test/**/*Test.csproj",
   "explorer.fileNesting.patterns": {

@@ -35,9 +35,9 @@ namespace Autofac.Diagnostics.DotGraph.Test
 
             container.Resolve<string>();
 
-            Assert.Contains("λ:string", lastOpResult);
-            Assert.StartsWith("digraph G {", lastOpResult);
-            Assert.EndsWith("}", lastOpResult.Trim());
+            Assert.Contains("λ:string", lastOpResult, StringComparison.Ordinal);
+            Assert.StartsWith("digraph G {", lastOpResult, StringComparison.Ordinal);
+            Assert.EndsWith("}", lastOpResult.Trim(), StringComparison.Ordinal);
         }
 
         [Fact]
@@ -56,17 +56,10 @@ namespace Autofac.Diagnostics.DotGraph.Test
                 lastOpResult = args.TraceContent;
             };
 
-            try
-            {
-                container.Resolve<string>();
-            }
-            catch
-            {
-            }
-
-            Assert.Contains(nameof(InvalidOperationException), lastOpResult);
-            Assert.StartsWith("digraph G {", lastOpResult);
-            Assert.EndsWith("}", lastOpResult.Trim());
+            Assert.Throws<DependencyResolutionException>(() => container.Resolve<string>());
+            Assert.Contains(nameof(InvalidOperationException), lastOpResult, StringComparison.Ordinal);
+            Assert.StartsWith("digraph G {", lastOpResult, StringComparison.Ordinal);
+            Assert.EndsWith("}", lastOpResult.Trim(), StringComparison.Ordinal);
         }
 
         [Fact]
@@ -88,7 +81,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
 
             container.Resolve<IService>();
 
-            Assert.Contains("Decorator", lastOpResult);
+            Assert.Contains("Decorator", lastOpResult, StringComparison.Ordinal);
         }
 
         [Fact]
@@ -254,6 +247,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
             }
         }
 
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
         private class Decorator : IService
         {
             public Decorator(IService decorated)
@@ -264,6 +258,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
             public IService Decorated { get; }
         }
 
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
         private class Implementor : IService
         {
         }

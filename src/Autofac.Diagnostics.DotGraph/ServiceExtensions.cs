@@ -20,7 +20,7 @@ namespace Autofac.Diagnostics.DotGraph
             return service switch
             {
                 IServiceWithType swt => swt.ServiceType.CSharpName(),
-                _ => service.Description
+                _ => service.Description,
             };
         }
     }

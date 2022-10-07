@@ -16,19 +16,19 @@ namespace Autofac.Diagnostics.DotGraph.Test
             _output = output;
         }
 
-        public interface IService1
+        private interface IService1
         {
         }
 
-        public interface IService2
+        private interface IService2
         {
         }
 
-        public interface IService3
+        private interface IService3
         {
         }
 
-        public interface IHandler<T>
+        private interface IHandler<T>
         {
         }
 
@@ -69,7 +69,7 @@ namespace Autofac.Diagnostics.DotGraph.Test
             scope.Resolve<IHandler<string>>();
 
             // Label should be at the top.
-            Assert.Contains("labelloc=t", result);
+            Assert.Contains("labelloc=t", result, StringComparison.Ordinal);
         }
 
         [Fact]
@@ -89,11 +89,11 @@ namespace Autofac.Diagnostics.DotGraph.Test
             scope.Resolve<IHandler<string>>();
 
             // Label should be pretty-printed.
-            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;", result);
+            Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;", result, StringComparison.Ordinal);
 
             // No raw type names.
-            Assert.DoesNotContain("`1", result);
-            Assert.DoesNotContain("Culture=neutral", result);
+            Assert.DoesNotContain("`1", result, StringComparison.Ordinal);
+            Assert.DoesNotContain("Culture=neutral", result, StringComparison.Ordinal);
         }
 
         private static IContainer BuildGraphContainer()
@@ -107,7 +107,8 @@ namespace Autofac.Diagnostics.DotGraph.Test
             return builder.Build();
         }
 
-        public class Component1 : IService1
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
+        private class Component1 : IService1
         {
             public Component1(IService2 service2, IService3 service3)
             {
@@ -120,7 +121,8 @@ namespace Autofac.Diagnostics.DotGraph.Test
             public IService3 Service3 { get; }
         }
 
-        public class Component2 : IService2
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
+        private class Component2 : IService2
         {
             public Component2(IService3 service3)
             {
@@ -130,11 +132,12 @@ namespace Autofac.Diagnostics.DotGraph.Test
             public IService3 Service3 { get; }
         }
 
-        public class Component3 : IService3
+        private class Component3 : IService3
         {
         }
 
-        public class Component3Decorator : IService3
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
+        private class Component3Decorator : IService3
         {
             public Component3Decorator(IService3 decorated, ILifetimeScope scope)
             {
@@ -147,7 +150,8 @@ namespace Autofac.Diagnostics.DotGraph.Test
             public ILifetimeScope Scope { get; }
         }
 
-        public class Handler<T> : IHandler<T>
+        [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
+        private class Handler<T> : IHandler<T>
         {
             public Handler(IService1 service1, IService2 service2)
             {

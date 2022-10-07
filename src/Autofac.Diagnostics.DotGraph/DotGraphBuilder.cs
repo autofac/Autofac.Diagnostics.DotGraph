@@ -102,7 +102,7 @@ namespace Autofac.Diagnostics.DotGraph
             var request = new ResolveRequestNode(component);
             request.Services.Add(service, Guid.NewGuid());
             Requests.Add(request);
-            if (decoratorTarget is object)
+            if (decoratorTarget is not null)
             {
                 request.DecoratorTarget = decoratorTarget;
             }
@@ -185,7 +185,7 @@ namespace Autofac.Diagnostics.DotGraph
             // Other than the originating request, find the rest of the distinct values
             // so we can de-dupe.
             var unique = Requests
-                .Where(r => r.Success && r.Instance is object && r.Id != OriginatingRequest)
+                .Where(r => r.Success && r.Instance is not null && r.Id != OriginatingRequest)
                 .Distinct(NodeEqualityComparer.Default)
                 .Select(r => r.Id)
                 .ToArray();
@@ -223,7 +223,7 @@ namespace Autofac.Diagnostics.DotGraph
                 dup.Id != sourceId && dup.Success &&
 
                 // Instance is exactly the same
-                dup.Instance is object && object.ReferenceEquals(dup.Instance, source.Instance) &&
+                dup.Instance is not null && ReferenceEquals(dup.Instance, source.Instance) &&
 
                 // Decorator target must also be the same (otherwise we lose the instance/decorator relationship)
                 dup.DecoratorTarget == source.DecoratorTarget).ToArray();

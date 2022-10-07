@@ -38,12 +38,12 @@ namespace Autofac.Diagnostics.DotGraph
             DiagnosticEventKeys.RequestSuccess,
         };
 
-        private readonly ConcurrentDictionary<IResolveOperation, DotGraphBuilder> _operationBuilders = new ConcurrentDictionary<IResolveOperation, DotGraphBuilder>();
+        private readonly ConcurrentDictionary<IResolveOperation, DotGraphBuilder> _operationBuilders = new();
 
         // "Global" sequence number for graph ordering. Increment is done
         // with Interlocked.Increment, which is both thread-safe and handles
         // overflow by wrapping from Int64.MaxValue to Int64.MinValue as needed.
-        private long _sequenceNumber = 0;
+        private long _sequenceNumber;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DotDiagnosticTracer"/> class.
@@ -160,7 +160,7 @@ namespace Autofac.Diagnostics.DotGraph
             if (_operationBuilders.TryGetValue(data.Operation, out var builder))
             {
                 var requestException = data.RequestException;
-                if (requestException is DependencyResolutionException && requestException.InnerException is object)
+                if (requestException is DependencyResolutionException && requestException.InnerException is not null)
                 {
                     requestException = requestException.InnerException;
                 }
