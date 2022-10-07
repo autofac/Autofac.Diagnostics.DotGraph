@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Collections.Concurrent;
-using System.Threading;
 using Autofac.Core;
 using Autofac.Core.Resolving;
 
