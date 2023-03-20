@@ -1,4 +1,19 @@
 {
+  "cSpell.words": [
+    "autofac",
+    "browsable",
+    "cref",
+    "graphviz",
+    "inheritdoc",
+    "langword",
+    "multitarget",
+    "netstandard",
+    "xunit"
+  ],
+  "dotnet-test-explorer.testProjectPath": "test/**/*Test.csproj",
+  "explorer.fileNesting.patterns": {
+    "*.resx": "$(capture).*.resx, $(capture).Designer.cs"
+  },
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableRoslynAnalyzers": true
 }

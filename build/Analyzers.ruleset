@@ -22,7 +22,5 @@
     <Rule Id="SA1200" Action="None" />
     <!-- Fields can't start with underscore -->
     <Rule Id="SA1309" Action="None" />
-    <!-- No single-line statements involving braces -->
-    <Rule Id="SA1501" Action="None" />
   </Rules>
 </RuleSet>
