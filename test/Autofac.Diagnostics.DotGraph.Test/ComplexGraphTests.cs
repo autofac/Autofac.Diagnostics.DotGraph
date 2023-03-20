@@ -106,7 +106,7 @@ public class ComplexGraphTests
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Component1 : IService1
+    private sealed class Component1 : IService1
     {
         public Component1(IService2 service2, IService3 service3)
         {
@@ -120,7 +120,7 @@ public class ComplexGraphTests
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Component2 : IService2
+    private sealed class Component2 : IService2
     {
         public Component2(IService3 service3)
         {
@@ -130,12 +130,12 @@ public class ComplexGraphTests
         public IService3 Service3 { get; }
     }
 
-    private class Component3 : IService3
+    private sealed class Component3 : IService3
     {
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Component3Decorator : IService3
+    private sealed class Component3Decorator : IService3
     {
         public Component3Decorator(IService3 decorated, ILifetimeScope scope)
         {
@@ -149,7 +149,7 @@ public class ComplexGraphTests
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Handler<T> : IHandler<T>
+    private sealed class Handler<T> : IHandler<T>
     {
         public Handler(IService1 service1, IService2 service2)
         {

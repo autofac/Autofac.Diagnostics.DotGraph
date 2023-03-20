@@ -235,7 +235,7 @@ public class DotDiagnosticTracerTests
                 ctx.Registration == registration);
     }
 
-    private class TestTracer : DotDiagnosticTracer
+    private sealed class TestTracer : DotDiagnosticTracer
     {
         public void TestWrite(string diagnosticName, object data)
         {
@@ -244,7 +244,7 @@ public class DotDiagnosticTracerTests
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Decorator : IService
+    private sealed class Decorator : IService
     {
         public Decorator(IService decorated)
         {
@@ -255,7 +255,7 @@ public class DotDiagnosticTracerTests
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
-    private class Implementor : IService
+    private sealed class Implementor : IService
     {
     }
 }
