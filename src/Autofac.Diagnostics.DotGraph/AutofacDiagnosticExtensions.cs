@@ -112,7 +112,7 @@ public static class AutofacDiagnosticExtensions
                       .CleanCodeAndImageFoldersEnum()
                       .WriteDOTCodeEnum(args.TraceContent)
                       .GetImageFileFullPathEnum(args.TraceContent)
-                      .WriteDOTDiagramEnum())
+                      .WriteDOTDiagramEnum().ConfigureAwait(false))
                         i += 0; // dummy work-around to empty statement
 
                     timePer.Stop();
