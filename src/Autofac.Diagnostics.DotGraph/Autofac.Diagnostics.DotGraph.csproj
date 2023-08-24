@@ -13,7 +13,7 @@
     <SignAssembly>true</SignAssembly>
     <NeutralLanguage>en-US</NeutralLanguage>
     <!-- Frameworks and language features -->
-    <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -34,7 +34,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedAllSources>true</EmbedAllSources>
     <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>    
   </PropertyGroup>
   <!-- Disable nullability warnings in netstandard2.0 -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -55,15 +55,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autofac" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NETCore.DotNetAppHost" Version="7.0.10" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.1" />
+    <PackageReference Include="System.CodeDom" Version="7.0.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
