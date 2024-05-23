@@ -13,11 +13,12 @@
     <SignAssembly>true</SignAssembly>
     <NeutralLanguage>en-US</NeutralLanguage>
     <!-- Frameworks and language features -->
-    <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net7.0;net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>../../build/Analyzers.ruleset</CodeAnalysisRuleSet>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Packaging -->
@@ -35,15 +36,18 @@
     <EmbedAllSources>true</EmbedAllSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
-  <!-- Disable nullability warnings in netstandard2.0 -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
+    <!-- OmniSharp/VS Code resource generation -->
+    <CoreCompileDependsOn>PrepareResources;$(CompileDependsOn)</CoreCompileDependsOn>
   </PropertyGroup>
 
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
   </ItemGroup>
+
+  <!-- Disable nullability warnings in netstandard2.0 -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\build\icon.png" Pack="true" PackagePath="\" />
@@ -55,33 +59,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
+    <PackageReference Include="Autofac" Version="8.0.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" Condition="Exists('$(MSBuildThisFileDirectory)../../.git')">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.1" />
+    <PackageReference Include="System.CodeDom" Version="8.0.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!--
-      Magic embedded resource incantation based on https://github.com/dotnet/msbuild/issues/4751
-
-      The EmbeddedResource entry seems to add the Designer files to Compile, so
-      if you don't first remove them from Compile you get warnings about
-      double-including source.
-    -->
-    <Compile Remove="**/*.Designer.cs" />
-    <EmbeddedResource Update="TracerMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TracerMessages.Designer.cs</LastGenOutput>
-      <StronglyTypedFileName>TracerMessages.Designer.cs</StronglyTypedFileName>
+  <ItemDefinitionGroup>
+    <EmbeddedResource>
+      <Generator>MSBuild:Compile</Generator>
       <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedFileName>$(IntermediateOutputPath)%(Filename).Designer.cs</StronglyTypedFileName>
+      <StronglyTypedClassName>%(Filename)</StronglyTypedClassName>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="TracerMessages.resx">
       <StronglyTypedNamespace>Autofac.Diagnostics.DotGraph</StronglyTypedNamespace>
-      <StronglyTypedClassName>TracerMessages</StronglyTypedClassName>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
