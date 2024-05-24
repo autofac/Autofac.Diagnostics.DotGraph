@@ -213,26 +213,28 @@ public class DotDiagnosticTracerTests
 
     private static IResolveOperation MockResolveOperation()
     {
-        return Mock.Of<IResolveOperation>();
+        return Substitute.For<IResolveOperation>();
     }
 
     private static ResolveRequest MockResolveRequest()
     {
         return new ResolveRequest(
             new TypedService(typeof(string)),
-            new ServiceRegistration(Mock.Of<IResolvePipeline>(), Mock.Of<IComponentRegistration>()),
+            new ServiceRegistration(Substitute.For<IResolvePipeline>(), Substitute.For<IComponentRegistration>()),
             Enumerable.Empty<Parameter>());
     }
 
     private static ResolveRequestContext MockResolveRequestContext()
     {
         var service = new TypedService(typeof(string));
-        var activator = Mock.Of<IInstanceActivator>(act => act.LimitType == typeof(string));
-        var registration = Mock.Of<IComponentRegistration>(reg => reg.Activator == activator);
-        return Mock.Of<ResolveRequestContext>(
-            ctx =>
-                ctx.Service == service &&
-                ctx.Registration == registration);
+        var activator = Substitute.For<IInstanceActivator>();
+        activator.LimitType.Returns(typeof(string));
+        var registration = Substitute.For<IComponentRegistration>();
+        registration.Activator.Returns(activator);
+        var context = Substitute.For<ResolveRequestContext>();
+        context.Service.Returns(service);
+        context.Registration.Returns(registration);
+        return context;
     }
 
     private class TestTracer : DotDiagnosticTracer
