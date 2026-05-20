@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <SolutionName>Autofac.Diagnostics.DotGraph</SolutionName>
+    <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
+    <ArtifactDirectory>$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"artifacts"))</ArtifactDirectory>
+    <PackageDirectory>$([System.IO.Path]::Combine($(ArtifactDirectory),"packages"))</PackageDirectory>
+    <LogDirectory>$([System.IO.Path]::Combine($(ArtifactDirectory),"logs"))</LogDirectory>
+    <CoverageRunSettings>$([System.IO.Path]::Combine($(MSBuildProjectDirectory),'build/Coverage.runsettings'))</CoverageRunSettings>
+    <BuildDateTime>$([System.DateTimeOffset]::UtcNow.ToString('yyyyMMddTHHmmssZ'))</BuildDateTime>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(GITHUB_REF_NAME)'==''">
+      <PropertyGroup>
+        <Version>$(Version)-local</Version>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(GITHUB_REF_NAME)'=='master' Or $([System.Text.RegularExpressions.Regex]::IsMatch($(GITHUB_REF_NAME), `^v.+\..+\..+`))">
+      <PropertyGroup>
+        <Version>$(Version)</Version>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(GITHUB_REF_NAME)'=='develop'">
+      <PropertyGroup>
+        <Version>$(Version)-beta$(BuildDateTime)</Version>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <Version>$(Version)-alpha$(BuildDateTime)</Version>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Solutions Include="$(SolutionName).sln" />
+    <TestProjects Include="test/**/*.csproj" />
+  </ItemGroup>
+  <Target Name="All" DependsOnTargets="Clean;Compile;Test;Package" />
+  <Target Name="Clean">
+    <RemoveDir Directories="$(ArtifactDirectory)" Condition="Exists('$(ArtifactDirectory)')" />
+  </Target>
+  <Target Name="Compile">
+    <MSBuild Projects="@(Solutions)" Targets="Restore;Build" Properties="Configuration=$(Configuration);Version=$(Version)" />
+  </Target>
+  <Target Name="Package">
+    <MSBuild Projects="@(Solutions)" Targets="Pack" Properties="Configuration=$(Configuration);Version=$(Version);PackageOutputPath=$(PackageDirectory)" />
+  </Target>
+  <Target Name="Test">
+    <MSBuild Projects="@(TestProjects)" Targets="VSTest" Properties="Configuration=$(Configuration);CollectCoverage=true;CoverletOutputFormat=cobertura;RunSettingsFilePath=$(CoverageRunSettings);ResultsDirectory=$(LogDirectory)/%(TestProjects.Filename)" />
+  </Target>
+</Project>
