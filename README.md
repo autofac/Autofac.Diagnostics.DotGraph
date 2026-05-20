@@ -2,7 +2,7 @@
 
 [Autofac](https://autofac.org) diagnostics support to enable DOT graph visualization of resolve requests.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/asqnmv0qa7m43oy0/branch/develop?svg=true)](https://ci.appveyor.com/project/Autofac/autofac-diagnostics-dotgraph/branch/develop)
+[![Build status](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/ci.yml)
 
 Please file issues and pull requests for this package [in this repository](https://github.com/autofac/Autofac.Diagnostics.DotGraph/issues) rather than in the Autofac core repo.
 
