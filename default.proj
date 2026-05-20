@@ -33,20 +33,33 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Solutions Include="$(SolutionName).sln" />
-    <TestProjects Include="test/**/*.csproj" />
+    <CleanDirectory Include="$(ArtifactDirectory)" />
+    <SourceProject Include="$(MSBuildProjectDirectory)/src/**/*.csproj" />
+    <TestProject Include="$(MSBuildProjectDirectory)/test/**/*.csproj" />
+    <SolutionFile Include="$(SolutionName).sln" />
   </ItemGroup>
-  <Target Name="All" DependsOnTargets="Clean;Compile;Test;Package" />
+  <Target Name="All">
+    <Message Text="****************************************" Importance="high" />
+    <Message Text="$(SolutionName) v$(Version)" Importance="high" />
+    <Message Text="$(Configuration) Configuration" Importance="high" />
+    <Message Text="$(BuildDateTime)" Importance="high" />
+    <Message Text="****************************************" Importance="high" />
+    <CallTarget Targets="Clean;Compile;Test;Package" />
+  </Target>
   <Target Name="Clean">
-    <RemoveDir Directories="$(ArtifactDirectory)" Condition="Exists('$(ArtifactDirectory)')" />
+    <RemoveDir Directories="@(CleanDirectory)" />
+    <RemoveDir Directories="%(SourceProject.RootDir)%(SourceProject.Directory)bin;%(SourceProject.RootDir)%(SourceProject.Directory)obj" />
+    <RemoveDir Directories="%(TestProject.RootDir)%(TestProject.Directory)bin;%(TestProject.RootDir)%(TestProject.Directory)obj" />
   </Target>
   <Target Name="Compile">
-    <MSBuild Projects="@(Solutions)" Targets="Restore;Build" Properties="Configuration=$(Configuration);Version=$(Version)" />
+    <Exec Command="dotnet --info" />
+    <Exec Command="dotnet build &quot;%(SolutionFile.FullPath)&quot; -c $(Configuration) /p:Version=$(Version)" />
   </Target>
   <Target Name="Package">
-    <MSBuild Projects="@(Solutions)" Targets="Pack" Properties="Configuration=$(Configuration);Version=$(Version);PackageOutputPath=$(PackageDirectory)" />
+    <Exec Command="dotnet pack &quot;%(SolutionFile.FullPath)&quot; -c $(Configuration) --output &quot;$(PackageDirectory)&quot; /p:Version=$(Version)" />
   </Target>
   <Target Name="Test">
-    <MSBuild Projects="@(TestProjects)" Targets="VSTest" Properties="Configuration=$(Configuration);CollectCoverage=true;CoverletOutputFormat=cobertura;RunSettingsFilePath=$(CoverageRunSettings);ResultsDirectory=$(LogDirectory)/%(TestProjects.Filename)" />
+    <MakeDir Directories="$(LogDirectory)" />
+    <Exec Command="dotnet test &quot;%(SolutionFile.FullPath)&quot; -c $(Configuration) --results-directory &quot;$(LogDirectory)&quot; --logger:trx /p:Version=$(Version) --collect:&quot;XPlat Code Coverage&quot; --settings &quot;$(CoverageRunSettings)&quot;" />
   </Target>
 </Project>
