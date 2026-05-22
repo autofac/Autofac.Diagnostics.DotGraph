@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- VersionPrefix patched by AppVeyor -->
-    <VersionPrefix>0.0.1</VersionPrefix>
     <!-- Assembly metadata -->
     <Description>Autofac diagnostics support to enable DOT graph visualization of resolve requests.</Description>
     <Copyright>Copyright © 2020 Autofac Contributors</Copyright>
