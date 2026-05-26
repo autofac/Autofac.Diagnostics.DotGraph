@@ -38,7 +38,10 @@ internal class GraphEdge : IEquatable<GraphEdge>
     /// with request 'A' and 'A' calls into request 'B', this is the ID of 'B'. This corresponds to a
     /// <see cref="ResolveRequestNode.Id"/> value.
     /// </value>
-    public Guid Request { get; private set; }
+    public Guid Request
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets the service being resolved.
@@ -47,7 +50,10 @@ internal class GraphEdge : IEquatable<GraphEdge>
     /// The <see cref="Service"/> being resolved in the request. This service should appear in the
     /// <see cref="ResolveRequestNode.Services"/> dictionary of the target resolve request.
     /// </value>
-    public Service Service { get; private set; }
+    public Service Service
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Indicates whether the current object is equal to another object of the same type.

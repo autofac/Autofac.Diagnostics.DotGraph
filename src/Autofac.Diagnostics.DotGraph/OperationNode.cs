@@ -15,12 +15,18 @@ internal class OperationNode
     /// <summary>
     /// Gets or sets the name of the service being resolved in this operation.
     /// </summary>
-    public string? Service { get; set; }
+    public string? Service
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the overall operation was successful.
     /// </summary>
-    public bool Success { get; set; }
+    public bool Success
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets or sets the operation sequence number for resolve operation ordering.
@@ -31,7 +37,10 @@ internal class OperationNode
     /// to roughly correlate disconnected resolve operations where service location
     /// may be taking place.
     /// </value>
-    public long SequenceNumber { get; set; }
+    public long SequenceNumber
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Serializes the top-level operation data to the graph.

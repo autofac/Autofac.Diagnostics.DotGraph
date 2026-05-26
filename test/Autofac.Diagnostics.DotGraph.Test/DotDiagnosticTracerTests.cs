@@ -253,7 +253,10 @@ public class DotDiagnosticTracerTests
             Decorated = decorated;
         }
 
-        public IService Decorated { get; }
+        public IService Decorated
+        {
+            get;
+        }
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]

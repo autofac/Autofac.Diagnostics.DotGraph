@@ -24,8 +24,8 @@ internal static class ActivatorExtensions
         // this gives us full control over display in the graph as
         // well as not requiring DisplayName be part of the public API.
         var fullName = activator?.LimitType.CSharpName() ?? "";
-        return activator is DelegateActivator ?
-            $"λ:{fullName}" :
-            fullName;
+        return activator is DelegateActivator
+            ? $"λ:{fullName}"
+            : fullName;
     }
 }
