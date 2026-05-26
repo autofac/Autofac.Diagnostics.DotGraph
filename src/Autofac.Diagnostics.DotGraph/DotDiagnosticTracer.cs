@@ -27,7 +27,7 @@ public class DotDiagnosticTracer : OperationDiagnosticTracerBase<string>
     /// </summary>
     private const string RequestExceptionTraced = "__RequestException";
 
-    private static readonly string[] DotEvents = new string[]
+    private static readonly string[] _dotEvents = new string[]
     {
         DiagnosticEventKeys.OperationStart,
         DiagnosticEventKeys.OperationFailure,
@@ -48,7 +48,7 @@ public class DotDiagnosticTracer : OperationDiagnosticTracerBase<string>
     /// Initializes a new instance of the <see cref="DotDiagnosticTracer"/> class.
     /// </summary>
     public DotDiagnosticTracer()
-        : base(DotEvents)
+        : base(_dotEvents)
     {
     }
 

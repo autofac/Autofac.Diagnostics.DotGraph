@@ -4,6 +4,14 @@
   <Rules AnalyzerId="Microsoft.Usage" RuleNamespace="Microsoft.Usage">
     <!-- Implement standard exception constructors - not all of the exception constructors (e.g., parameterless) are desired in our system. -->
     <Rule Id="CA1032" Action="None" />
+    <!-- Avoid excessive inheritance (must be explicitly enabled). -->
+    <Rule Id="CA1501" Action="Warning" />
+    <!-- Avoid excessive complexity (must be explicitly enabled). -->
+    <Rule Id="CA1502" Action="Warning" />
+    <!-- Avoid unmaintainable code (must be explicitly enabled). -->
+    <Rule Id="CA1505" Action="Warning" />
+    <!-- Avoid excessive class coupling (must be explicitly enabled). -->
+    <Rule Id="CA1506" Action="Warning" />
     <!-- Use ArgumentNullException.ThrowIfNull - this isn't available until we stop targeting netstandard. -->
     <Rule Id="CA1510" Action="None" />
     <!-- Use ArgumentOutOfRangeException.ThrowIfNegative - this isn't available until we stop targeting anything below net8.0. -->
@@ -18,6 +26,8 @@
     <Rule Id="CA2229" Action="None" />
     <!-- Mark ISerializable types with SerializableAttribute - false positive when building .NET Core. -->
     <Rule Id="CA2237" Action="None" />
+    <!-- Prefer generic overloads to using Type parameters - many aren't available in earlier frameworks; and we do a lot of reflection work in Autofac. -->
+    <Rule Id="CA2263" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <!-- Prefix local calls with this. -->
@@ -26,8 +36,6 @@
     <Rule Id="SA1121" Action="None" />
     <!-- Use String.Empty instead of "". -->
     <Rule Id="SA1122" Action="None" />
-    <!-- Using statements must be inside a namespace. -->
-    <Rule Id="SA1200" Action="None" />
     <!-- Fields can't start with underscore. -->
     <Rule Id="SA1309" Action="None" />
   </Rules>

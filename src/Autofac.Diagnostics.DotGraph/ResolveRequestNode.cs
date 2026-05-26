@@ -36,7 +36,10 @@ internal class ResolveRequestNode
     /// This is important because a given component may be resolved multiple times in
     /// an overall operation.
     /// </value>
-    public Guid Id { get; }
+    public Guid Id
+    {
+        get;
+    }
 
     /// <summary>
     /// Gets the set of services and unique IDs fulfilled by this component.
@@ -46,7 +49,10 @@ internal class ResolveRequestNode
     /// with this component. Each associated value is a child ID that can be used
     /// for generating graph edges pointing directly to the service itself.
     /// </value>
-    public Dictionary<Service, Guid> Services { get; private set; }
+    public Dictionary<Service, Guid> Services
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets the display name of the component in the graph.
@@ -55,7 +61,10 @@ internal class ResolveRequestNode
     /// A <see cref="string"/> that can be used in the graph as the title for
     /// the component node.
     /// </value>
-    public string Component { get; private set; }
+    public string Component
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets or sets the decorator target display name for the graph node.
@@ -64,7 +73,10 @@ internal class ResolveRequestNode
     /// An optional <see cref="string"/> that indicates this request is for a
     /// decorator and this is the display name of the thing being decorated.
     /// </value>
-    public string? DecoratorTarget { get; set; }
+    public string? DecoratorTarget
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the request was successful.
@@ -73,7 +85,10 @@ internal class ResolveRequestNode
     /// <see langword="true"/> if the request resulted in a successful resolution;
     /// <see langword="false"/> if the request failed.
     /// </value>
-    public bool Success { get; set; }
+    public bool Success
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets or sets the error explaining why the request failed.
@@ -82,7 +97,10 @@ internal class ResolveRequestNode
     /// An <see cref="Exception"/> that contains information about why the request failed.
     /// This will only be available if <see cref="Success"/> is <see langword="false"/>.
     /// </value>
-    public Exception? Exception { get; set; }
+    public Exception? Exception
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets or sets the instance that was resolved in this request.
@@ -91,7 +109,10 @@ internal class ResolveRequestNode
     /// An <see cref="object"/> that resulted from the resolve request. This will
     /// only be available if <see cref="Success"/> is <see langword="true"/>.
     /// </value>
-    public object? Instance { get; set; }
+    public object? Instance
+    {
+        get; set;
+    }
 
     /// <summary>
     /// Gets a list of edges in the graph that originate at this node.
@@ -102,7 +123,10 @@ internal class ResolveRequestNode
     /// other services that were resolved during this request (i.e., child
     /// resolve requests).
     /// </value>
-    public HashSet<GraphEdge> Edges { get; }
+    public HashSet<GraphEdge> Edges
+    {
+        get;
+    }
 
     /// <summary>
     /// Serializes this node to DOT graph format. This is generally only done after

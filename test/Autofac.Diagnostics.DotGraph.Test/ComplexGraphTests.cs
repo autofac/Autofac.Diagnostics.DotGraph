@@ -114,9 +114,15 @@ public class ComplexGraphTests
             Service3 = service3 ?? throw new ArgumentNullException(nameof(service3));
         }
 
-        public IService2 Service2 { get; }
+        public IService2 Service2
+        {
+            get;
+        }
 
-        public IService3 Service3 { get; }
+        public IService3 Service3
+        {
+            get;
+        }
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
@@ -127,7 +133,10 @@ public class ComplexGraphTests
             Service3 = service3 ?? throw new ArgumentNullException(nameof(service3));
         }
 
-        public IService3 Service3 { get; }
+        public IService3 Service3
+        {
+            get;
+        }
     }
 
     private class Component3 : IService3
@@ -143,9 +152,15 @@ public class ComplexGraphTests
             Scope = scope ?? throw new ArgumentNullException(nameof(scope));
         }
 
-        public IService3 Decorated { get; }
+        public IService3 Decorated
+        {
+            get;
+        }
 
-        public ILifetimeScope Scope { get; }
+        public ILifetimeScope Scope
+        {
+            get;
+        }
     }
 
     [SuppressMessage("CA1812", "CA1812", Justification = "Instantiated via reflection.")]
@@ -157,8 +172,14 @@ public class ComplexGraphTests
             Service2 = service2 ?? throw new ArgumentNullException(nameof(service2));
         }
 
-        public IService1 Service1 { get; }
+        public IService1 Service1
+        {
+            get;
+        }
 
-        public IService2 Service2 { get; }
+        public IService2 Service2
+        {
+            get;
+        }
     }
 }

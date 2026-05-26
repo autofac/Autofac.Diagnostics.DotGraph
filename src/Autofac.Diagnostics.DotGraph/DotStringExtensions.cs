@@ -15,7 +15,7 @@ internal static class DotStringExtensions
     /// <summary>
     /// The set of characters on which a line is allowed to wrap.
     /// </summary>
-    private static readonly char[] WrapCharacters = new[] { ' ', ',', '.', '?', '!', ':', ';', '-', '\n', '\r', '\t' };
+    private static readonly char[] _wrapCharacters = new[] { ' ', ',', '.', '?', '!', ':', ';', '-', '\n', '\r', '\t' };
 
     /// <summary>
     /// Starts a DOT graph node where the label is an HTML table.
@@ -216,16 +216,16 @@ internal static class DotStringExtensions
     /// </returns>
     public static string Wrap(this string input)
     {
-        const int maxLineLength = 40;
+        const int MaxLineLength = 40;
         var list = new List<string>();
         var lastWrap = 0;
         int currentIndex;
         do
         {
-            currentIndex = lastWrap + maxLineLength > input.Length ? input.Length : (input.LastIndexOfAny(WrapCharacters, Math.Min(input.Length - 1, lastWrap + maxLineLength)) + 1);
+            currentIndex = lastWrap + MaxLineLength > input.Length ? input.Length : (input.LastIndexOfAny(_wrapCharacters, Math.Min(input.Length - 1, lastWrap + MaxLineLength)) + 1);
             if (currentIndex <= lastWrap)
             {
-                currentIndex = Math.Min(lastWrap + maxLineLength, input.Length);
+                currentIndex = Math.Min(lastWrap + MaxLineLength, input.Length);
             }
 
             list.Add(input.Substring(lastWrap, currentIndex - lastWrap).Trim());

@@ -24,25 +24,37 @@ internal class DotGraphBuilder
     /// <summary>
     /// Gets the node that has operation-level data for the graph.
     /// </summary>
-    public OperationNode Operation { get; private set; }
+    public OperationNode Operation
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets the set of all requests made during the operation.
     /// </summary>
-    public RequestDictionary Requests { get; private set; }
+    public RequestDictionary Requests
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets the originating request ID. This will also be the first request in the
     /// stack of ongoing requests. Tracked to ensure we retain the originating
     /// request during the normalization of the graph.
     /// </summary>
-    public Guid OriginatingRequest { get; private set; }
+    public Guid OriginatingRequest
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Gets the stack of ongoing requests. The first request in the stack is the originating
     /// request where the graph should start.
     /// </summary>
-    public Stack<Guid> CurrentRequest { get; private set; }
+    public Stack<Guid> CurrentRequest
+    {
+        get; private set;
+    }
 
     /// <summary>
     /// Adds information about the operation available at operation start.
