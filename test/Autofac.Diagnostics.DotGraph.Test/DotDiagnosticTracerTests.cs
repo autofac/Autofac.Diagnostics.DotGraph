@@ -196,7 +196,8 @@ public class DotDiagnosticTracerTests
 
         // Should have a request start before ending, but make sure we don't
         // explode if something weird happens.
-        tracer.TestWrite(DiagnosticEventKeys.RequestSuccess, new RequestDiagnosticData(op, MockResolveRequestContext()));
+        var exception = Record.Exception(() => tracer.TestWrite(DiagnosticEventKeys.RequestSuccess, new RequestDiagnosticData(op, MockResolveRequestContext())));
+        Assert.Null(exception);
     }
 
     [Fact]
@@ -208,7 +209,8 @@ public class DotDiagnosticTracerTests
 
         // Should have a request start before ending, but make sure we don't
         // explode if something weird happens.
-        tracer.TestWrite(DiagnosticEventKeys.RequestFailure, new RequestFailureDiagnosticData(op, MockResolveRequestContext(), new DivideByZeroException()));
+        var exception = Record.Exception(() => tracer.TestWrite(DiagnosticEventKeys.RequestFailure, new RequestFailureDiagnosticData(op, MockResolveRequestContext(), new DivideByZeroException())));
+        Assert.Null(exception);
     }
 
     private static IResolveOperation MockResolveOperation()
