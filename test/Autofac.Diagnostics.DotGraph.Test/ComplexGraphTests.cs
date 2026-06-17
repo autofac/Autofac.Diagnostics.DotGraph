@@ -36,7 +36,7 @@ public class ComplexGraphTests
         using var container = BuildGraphContainer();
 
         var tracer = new DotDiagnosticTracer();
-        string result = null;
+        string? result = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             result = args.TraceContent;
@@ -56,7 +56,7 @@ public class ComplexGraphTests
         using var container = BuildGraphContainer();
 
         var tracer = new DotDiagnosticTracer();
-        string result = null;
+        string? result = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             result = args.TraceContent;
@@ -67,6 +67,7 @@ public class ComplexGraphTests
         scope.Resolve<IHandler<string>>();
 
         // Label should be at the top.
+        Assert.NotNull(result);
         Assert.Contains("labelloc=t", result, StringComparison.Ordinal);
     }
 
@@ -76,7 +77,7 @@ public class ComplexGraphTests
         using var container = BuildGraphContainer();
 
         var tracer = new DotDiagnosticTracer();
-        string result = null;
+        string? result = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             result = args.TraceContent;
@@ -87,6 +88,7 @@ public class ComplexGraphTests
         scope.Resolve<IHandler<string>>();
 
         // Label should be pretty-printed.
+        Assert.NotNull(result);
         Assert.Contains("label=<Autofac.Diagnostics.DotGraph.Test.ComplexGraphTests.IHandler&lt;string&gt;", result, StringComparison.Ordinal);
 
         // No raw type names.

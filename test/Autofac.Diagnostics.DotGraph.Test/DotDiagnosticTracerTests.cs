@@ -22,7 +22,7 @@ public class DotDiagnosticTracerTests
 
         var tracer = new DotDiagnosticTracer();
         container.SubscribeToDiagnostics(tracer);
-        string lastOpResult = null;
+        string? lastOpResult = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             Assert.Same(tracer, sender);
@@ -31,6 +31,7 @@ public class DotDiagnosticTracerTests
 
         container.Resolve<string>();
 
+        Assert.NotNull(lastOpResult);
         Assert.Contains("λ:string", lastOpResult, StringComparison.Ordinal);
         Assert.StartsWith("digraph G {", lastOpResult, StringComparison.Ordinal);
         Assert.EndsWith("}", lastOpResult.Trim(), StringComparison.Ordinal);
@@ -45,7 +46,7 @@ public class DotDiagnosticTracerTests
 
         var tracer = new DotDiagnosticTracer();
         container.SubscribeToDiagnostics(tracer);
-        string lastOpResult = null;
+        string? lastOpResult = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             Assert.Same(tracer, sender);
@@ -53,6 +54,7 @@ public class DotDiagnosticTracerTests
         };
 
         Assert.Throws<DependencyResolutionException>(() => container.Resolve<string>());
+        Assert.NotNull(lastOpResult);
         Assert.Contains(nameof(InvalidOperationException), lastOpResult, StringComparison.Ordinal);
         Assert.StartsWith("digraph G {", lastOpResult, StringComparison.Ordinal);
         Assert.EndsWith("}", lastOpResult.Trim(), StringComparison.Ordinal);
@@ -68,7 +70,7 @@ public class DotDiagnosticTracerTests
 
         var tracer = new DotDiagnosticTracer();
         container.SubscribeToDiagnostics(tracer);
-        string lastOpResult = null;
+        string? lastOpResult = null;
         tracer.OperationCompleted += (sender, args) =>
         {
             Assert.Same(tracer, sender);
@@ -241,7 +243,7 @@ public class DotDiagnosticTracerTests
 
     private class TestTracer : DotDiagnosticTracer
     {
-        public void TestWrite(string diagnosticName, object data)
+        public void TestWrite(string diagnosticName, object? data)
         {
             Write(diagnosticName, data);
         }

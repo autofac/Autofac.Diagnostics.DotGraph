@@ -109,7 +109,6 @@ publish/
 *.pubxml
 
 # NuGet Packages Directory
-## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 packages/
 
 # Windows Azure Build Output
@@ -123,6 +122,8 @@ AppPackages/
 sql/
 *.Cache
 ClientBin/
+[Ss]tyle[Cc]op.*
+!stylecop.json
 ~$*
 *~
 *.dbmdl

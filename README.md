@@ -2,7 +2,7 @@
 
 [Autofac](https://autofac.org) diagnostics support to enable DOT graph visualization of resolve requests.
 
-[![Build status](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/ci.yml)
+[![Build status](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/main.yml/badge.svg)](https://github.com/autofac/Autofac.Diagnostics.DotGraph/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/Autofac/Autofac.Diagnostics.DotGraph/branch/develop/graph/badge.svg)](https://codecov.io/gh/Autofac/Autofac.Diagnostics.DotGraph) [![NuGet](https://img.shields.io/nuget/v/Autofac.Diagnostics.DotGraph.svg)](https://nuget.org/packages/Autofac.Diagnostics.DotGraph)
 
 Please file issues and pull requests for this package [in this repository](https://github.com/autofac/Autofac.Diagnostics.DotGraph/issues) rather than in the Autofac core repo.
 
@@ -15,7 +15,7 @@ Please file issues and pull requests for this package [in this repository](https
 
 After building your container, attach the `Autofac.Diagnostics.DotGraph.DotDiagnosticTracer` to the container. When every resolve operation completes (success or failure) you'll get a trace. It's up to you to determine what to do with that trace - write it to a file, render it to an image, etc.
 
-```c#
+```csharp
 // Build a container with some registrations.
 var containerBuilder = new ContainerBuilder();
 containerBuilder.Register(ctx => "Hello");
